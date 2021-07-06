@@ -19,14 +19,14 @@ public class AWSClients {
 		if (client == null) {
 			AWSHelper.LOGGER.info("Creating client for " + SqsClient.SERVICE_NAME + "(" + credentials.getIdentifier() + ").");
 			Region region = Region.of(credentials.getRegionName());
-			CredentialsProvider çredentialsProvider = getCredentialsProvider(context, credentials);
+			CredentialsProvider credentialsProvider = getCredentialsProvider(context, credentials);
 			SqsClient newClient = SqsClient.builder().credentialsProvider(
-					çredentialsProvider.getAwsCredentialsProvider())
+					credentialsProvider.getAwsCredentialsProvider())
 					.httpClientBuilder(ApacheHttpClient.builder())
 					.region(region)
 					.build();
 			ClientCache.addClient(context, SqsClient.SERVICE_NAME, credentials, 
-					çredentialsProvider.getExpiration(), newClient);
+					credentialsProvider.getExpiration(), newClient);
 			return newClient;
 		} else {
 			return (SqsClient) client;
@@ -38,14 +38,14 @@ public class AWSClients {
 		if (client == null) {
 			AWSHelper.LOGGER.info("Creating client for " + S3Client.SERVICE_NAME + "(" + credentials.getIdentifier() + ").");
 			Region region = Region.of(credentials.getRegionName());
-			CredentialsProvider çredentialsProvider = getCredentialsProvider(context, credentials);
+			CredentialsProvider credentialsProvider = getCredentialsProvider(context, credentials);
 			S3Client newClient = S3Client.builder().credentialsProvider(
-					çredentialsProvider.getAwsCredentialsProvider())
+					credentialsProvider.getAwsCredentialsProvider())
 					.httpClientBuilder(ApacheHttpClient.builder())
 					.region(region)
 					.build();
 			ClientCache.addClient(context, S3Client.SERVICE_NAME, credentials, 
-					çredentialsProvider.getExpiration(), newClient);
+					credentialsProvider.getExpiration(), newClient);
 			return newClient;
 		} else {
 			return (S3Client) client;
@@ -57,14 +57,14 @@ public class AWSClients {
 		if (client == null) {
 			AWSHelper.LOGGER.info("Creating client for " + StsClient.SERVICE_NAME + "(" + credentials.getIdentifier() + ").");
 			Region region = Region.of(credentials.getRegionName());
-			CredentialsProvider çredentialsProvider = getCredentialsProvider(context, credentials);
+			CredentialsProvider credentialsProvider = getCredentialsProvider(context, credentials);
 			StsClient newClient = StsClient.builder().credentialsProvider(
-					çredentialsProvider.getAwsCredentialsProvider())
+					credentialsProvider.getAwsCredentialsProvider())
 					.httpClientBuilder(ApacheHttpClient.builder())
 					.region(region)
 					.build();
 			ClientCache.addClient(context, StsClient.SERVICE_NAME, credentials, 
-					çredentialsProvider.getExpiration(), newClient);
+					credentialsProvider.getExpiration(), newClient);
 			return newClient;
 		} else {
 			return (StsClient) client;
@@ -72,13 +72,9 @@ public class AWSClients {
 	}
 	
 	private static CredentialsProvider getCredentialsProvider(IContext context, Credentials credentials) {
-		switch (credentials.getProvider()) {
-		case _STATIC:
-			return new StaticCredentialsProvider(context, credentials);
-		case COGNITO:
-			return new CognitoCredentialsProvider(context, credentials);
-		default:
-			throw new RuntimeException("No credentials provider selected.");
-		}
+		return switch (credentials.getProvider()) {
+			case _STATIC -> new StaticCredentialsProvider(context, credentials);
+			case COGNITO -> new CognitoCredentialsProvider(context, credentials);
+		};
 	}
 }
