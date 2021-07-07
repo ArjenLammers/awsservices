@@ -71,6 +71,9 @@ public class Paging
 	 */
 	public static system.proxies.Paging initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
+		if (com.mendix.core.Core.isSubClassOf("AWSServices.TopicOverview_DataGrid", mendixObject.getType()))
+			return awsservices.proxies.TopicOverview_DataGrid.initialize(context, mendixObject);
+
 		return new system.proxies.Paging(context, mendixObject);
 	}
 

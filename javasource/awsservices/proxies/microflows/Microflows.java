@@ -85,6 +85,20 @@ public class Microflows
 		IMendixObject result = (IMendixObject)Core.microflowCall("AWSServices.DS_GetStaticCredentialsProvider").withParams(params).execute(context);
 		return result == null ? null : awsservices.proxies.StaticCredentials.initialize(context, result);
 	}
+	public static java.util.List<awsservices.proxies.Topic> dS_ListTopics(IContext context, awsservices.proxies.Credentials _credentials)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("Credentials", _credentials == null ? null : _credentials.getMendixObject());
+		java.util.List<IMendixObject> objs = Core.microflowCall("AWSServices.DS_ListTopics").withParams(params).execute(context);
+		java.util.List<awsservices.proxies.Topic> result = null;
+		if (objs != null)
+		{
+			result = new java.util.ArrayList<>();
+			for (IMendixObject obj : objs)
+				result.add(awsservices.proxies.Topic.initialize(context, obj));
+		}
+		return result;
+	}
 	public static java.util.List<awsservices.proxies.Message> dS_Receive10MessagesFromQueue(IContext context, awsservices.proxies.Queue _queue)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
@@ -214,6 +228,18 @@ public class Microflows
 		Map<java.lang.String, Object> params = new HashMap<>();
 		params.put("Queue", _queue == null ? null : _queue.getMendixObject());
 		Core.microflowCall("AWSServices.IVK_OpenReceive10Messages").withParams(params).execute(context);
+	}
+	public static void iVK_Publish(IContext context, awsservices.proxies.PublishRequest _publishRequest)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("PublishRequest", _publishRequest == null ? null : _publishRequest.getMendixObject());
+		Core.microflowCall("AWSServices.IVK_Publish").withParams(params).execute(context);
+	}
+	public static void iVK_PublishRequest(IContext context, awsservices.proxies.Topic _topic)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("Topic", _topic == null ? null : _topic.getMendixObject());
+		Core.microflowCall("AWSServices.IVK_PublishRequest").withParams(params).execute(context);
 	}
 	public static void iVK_PurgeQueue(IContext context, awsservices.proxies.Queue _queue, awsservices.proxies.Credentials _credentials)
 	{

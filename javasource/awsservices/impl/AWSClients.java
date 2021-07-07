@@ -9,6 +9,7 @@ import software.amazon.awssdk.core.SdkClient;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sqs.SqsClient;
 import software.amazon.awssdk.services.sts.StsClient;
 
@@ -33,7 +34,7 @@ public class AWSClients {
 		}
 	}
 	
-	public static synchronized S3Client GetS3Client(IContext context, Credentials credentials) throws CoreException {
+	public static synchronized S3Client getS3Client(IContext context, Credentials credentials) throws CoreException {
 		SdkClient client = ClientCache.getClient(context, S3Client.SERVICE_NAME, credentials);
 		if (client == null) {
 			AWSHelper.LOGGER.info("Creating client for " + S3Client.SERVICE_NAME + "(" + credentials.getIdentifier() + ").");
@@ -52,7 +53,7 @@ public class AWSClients {
 		}
 	}
 	
-	public static synchronized StsClient GetStsClient(IContext context, Credentials credentials) throws CoreException {
+	public static synchronized StsClient getStsClient(IContext context, Credentials credentials) throws CoreException {
 		SdkClient client = ClientCache.getClient(context, StsClient.SERVICE_NAME, credentials);
 		if (client == null) {
 			AWSHelper.LOGGER.info("Creating client for " + StsClient.SERVICE_NAME + "(" + credentials.getIdentifier() + ").");
@@ -70,11 +71,32 @@ public class AWSClients {
 			return (StsClient) client;
 		}
 	}
-	
+
+	public static synchronized SnsClient getSnsClient(IContext context, Credentials credentials) throws CoreException {
+		SdkClient client = ClientCache.getClient(context, SnsClient.SERVICE_NAME, credentials);
+		if (client == null) {
+			AWSHelper.LOGGER.info("Creating client for " + StsClient.SERVICE_NAME + "(" + credentials.getIdentifier() + ").");
+			Region region = Region.of(credentials.getRegionName());
+			CredentialsProvider credentialsProvider = getCredentialsProvider(context, credentials);
+			SnsClient newClient = SnsClient.builder().credentialsProvider(
+					credentialsProvider.getAwsCredentialsProvider())
+					.httpClientBuilder(ApacheHttpClient.builder())
+					.region(region)
+					.build();
+			ClientCache.addClient(context, StsClient.SERVICE_NAME, credentials,
+					credentialsProvider.getExpiration(), newClient);
+			return newClient;
+		} else {
+			return (SnsClient) client;
+		}
+	}
+
 	private static CredentialsProvider getCredentialsProvider(IContext context, Credentials credentials) {
-		return switch (credentials.getProvider()) {
-			case _STATIC -> new StaticCredentialsProvider(context, credentials);
-			case COGNITO -> new CognitoCredentialsProvider(context, credentials);
-		};
+		switch (credentials.getProvider()) {
+			case _STATIC: return new StaticCredentialsProvider(context, credentials);
+			case COGNITO: return new CognitoCredentialsProvider(context, credentials);
+		}
+
+		throw new IllegalStateException("Unimplemented credentials provider:" + credentials.getProvider().getCaption());
 	}
 }

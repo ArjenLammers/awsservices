@@ -40,7 +40,7 @@ public class S3_GetObjectAsText extends CustomJavaAction<java.lang.String>
 		this.credentials = __credentials == null ? null : awsservices.proxies.Credentials.initialize(getContext(), __credentials);
 
 		// BEGIN USER CODE
-		S3Client client = AWSClients.GetS3Client(getContext(), credentials);
+		S3Client client = AWSClients.getS3Client(getContext(), credentials);
 		GetObjectRequest req = GetObjectRequest.builder()
 				.bucket(bucket)
 				.key(key)
