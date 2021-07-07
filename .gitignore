@@ -1,0 +1,9 @@
+/dependencies/target
+/AWSServices.mpr.lock
+/AWSServices_main.launch
+/.mendix-cache
+/.svn
+/deployment
+/.classpath
+/.project
+/AWSServices.mpr.bak
