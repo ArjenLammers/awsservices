@@ -37,7 +37,7 @@ public class S3_DeleteObject extends CustomJavaAction<java.lang.Boolean>
 		this.credentials = __credentials == null ? null : awsservices.proxies.Credentials.initialize(getContext(), __credentials);
 
 		// BEGIN USER CODE
-		S3Client client = AWSClients.GetS3Client(getContext(), credentials);
+		S3Client client = AWSClients.getS3Client(getContext(), credentials);
 		DeleteObjectRequest req = DeleteObjectRequest.builder()
 				.bucket(bucket)
 				.key(key)

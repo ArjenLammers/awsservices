@@ -42,7 +42,7 @@ public class S3_ListObjects extends CustomJavaAction<java.util.List<IMendixObjec
 		this.credentials = __credentials == null ? null : awsservices.proxies.Credentials.initialize(getContext(), __credentials);
 
 		// BEGIN USER CODE
-		S3Client client = AWSClients.GetS3Client(getContext(), credentials);
+		S3Client client = AWSClients.getS3Client(getContext(), credentials);
 		ListObjectsRequest req = 
 				ListObjectsRequest.builder().bucket(bucket).prefix(prefix).build();
 

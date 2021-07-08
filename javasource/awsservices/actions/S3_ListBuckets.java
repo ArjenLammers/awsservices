@@ -38,7 +38,7 @@ public class S3_ListBuckets extends CustomJavaAction<java.util.List<IMendixObjec
 
 		// BEGIN USER CODE
 		List<IMendixObject> result = new LinkedList<>();
-		S3Client client = AWSClients.GetS3Client(getContext(), credentials);
+		S3Client client = AWSClients.getS3Client(getContext(), credentials);
 		ListBucketsResponse buckets = client.listBuckets();
 		for (Bucket bucket : buckets.buckets()) {
 			awsservices.proxies.Bucket mxBucket = new awsservices.proxies.Bucket(getContext());

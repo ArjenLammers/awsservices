@@ -55,7 +55,7 @@ public class S3_FindMostRecentObjects extends CustomJavaAction<java.util.List<IM
 
 		// BEGIN USER CODE
 		ArrayList<S3Object> result = new ArrayList<>();
-		S3Client client = AWSClients.GetS3Client(getContext(), credentials);
+		S3Client client = AWSClients.getS3Client(getContext(), credentials);
 		String continuationToken = null;
 		
 		while (true) {

@@ -4,8 +4,20 @@ This module provides actions and UI to leverage services on the Amazon Web Servi
 
 The following services are facilitated using this module:
 
-- S3 (provides access to S3 buckets and a UI to explore buckets, download, upload, delete and edit files)
-- SQS (provides access to SQS queues, a UI to explore queues, send and receive messages and some examples for high volume processing)
+- S3 - Simple Storage Service
+  - Explore buckets UI
+  - Download, upload, delete and edit files
+- SQS - Simple Queueing Service 
+  - Explore queues through UI
+  - Send and receive messages
+  - Message attributes
+  - Retrieval of queue attributes (e.g. depth) for monitoring purposes
+  - Examples for high volume processing
+- SNS - Simple Notification Service
+  - Explore topics through UI
+  - Publish messages to topics
+
+
 
 The following flows of authentication are supported to access all of the above services:
 
@@ -23,7 +35,10 @@ The following flows of authentication are supported to access all of the above s
 This module depends on the following modules:
 
 - Encryption (to encrypt AWS credentials in the database)
+
 - Library Logging (to redirect logging from the AWS libraries to Mendix lognodes)
+
+  
 
 ## How to upgrade from earlier SQS/S3/xx modules
 
@@ -37,4 +52,10 @@ Steps are:
 - Remove all jars from the `userlib` directory which have a corresponding file ending with `AWSS3Connector.RequiredLib` 
 
 Both older modules should have a high overlap of found files.
+
+## Contributors
+
+Special thanks going to:
+
+- Wouter Danes (@wouterd) for adding SNS and Cognito
 

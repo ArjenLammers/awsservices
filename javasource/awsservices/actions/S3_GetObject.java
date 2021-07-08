@@ -48,7 +48,7 @@ public class S3_GetObject extends CustomJavaAction<IMendixObject>
 			throw new CoreException("Provided type is not of FileDocument!");
 		}
 		
-		S3Client client = AWSClients.GetS3Client(getContext(), credentials);
+		S3Client client = AWSClients.getS3Client(getContext(), credentials);
 		GetObjectRequest req = GetObjectRequest.builder()
 				.bucket(bucket)
 				.key(key)

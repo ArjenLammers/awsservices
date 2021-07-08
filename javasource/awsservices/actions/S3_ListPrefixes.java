@@ -42,7 +42,7 @@ public class S3_ListPrefixes extends CustomJavaAction<java.util.List<IMendixObje
 		this.credentials = __credentials == null ? null : awsservices.proxies.Credentials.initialize(getContext(), __credentials);
 
 		// BEGIN USER CODE
-		S3Client client = AWSClients.GetS3Client(getContext(), credentials);
+		S3Client client = AWSClients.getS3Client(getContext(), credentials);
 		Set<String> prefixes = new HashSet<>();
 		prefixes.add("");
 		String continuationToken = null;

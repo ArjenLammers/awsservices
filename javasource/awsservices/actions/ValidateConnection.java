@@ -36,7 +36,7 @@ public class ValidateConnection extends CustomJavaAction<java.lang.String>
 		this.configuration = __configuration == null ? null : awsservices.proxies.Credentials.initialize(getContext(), __configuration);
 
 		// BEGIN USER CODE
-		StsClient client = AWSClients.GetStsClient(getContext(), configuration);
+		StsClient client = AWSClients.getStsClient(getContext(), configuration);
 		GetCallerIdentityResponse response = client.getCallerIdentity();
 		return response.account();
 		// END USER CODE
