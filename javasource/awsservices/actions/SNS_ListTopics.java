@@ -9,17 +9,16 @@
 
 package awsservices.actions;
 
+import java.util.Collections;
+import java.util.stream.Collectors;
+import com.mendix.systemwideinterfaces.core.IContext;
+import com.mendix.webui.CustomJavaAction;
 import awsservices.impl.AWSClients;
 import awsservices.proxies.Topic;
-import com.mendix.systemwideinterfaces.core.IContext;
-import com.mendix.thirdparty.org.json.JSONML;
-import com.mendix.webui.CustomJavaAction;
-import com.mendix.systemwideinterfaces.core.IMendixObject;
 import software.amazon.awssdk.arns.Arn;
 import software.amazon.awssdk.services.sns.SnsClient;
 import software.amazon.awssdk.services.sns.model.ListTopicsResponse;
-import java.util.Collections;
-import java.util.stream.Collectors;
+import com.mendix.systemwideinterfaces.core.IMendixObject;
 
 public class SNS_ListTopics extends CustomJavaAction<java.util.List<IMendixObject>>
 {
@@ -38,7 +37,6 @@ public class SNS_ListTopics extends CustomJavaAction<java.util.List<IMendixObjec
 		this.credentials = __credentials == null ? null : awsservices.proxies.Credentials.initialize(getContext(), __credentials);
 
 		// BEGIN USER CODE
-
 		final SnsClient client = AWSClients.getSnsClient(getContext(), credentials);
 
 		final ListTopicsResponse response = client.listTopics();
@@ -51,7 +49,6 @@ public class SNS_ListTopics extends CustomJavaAction<java.util.List<IMendixObjec
 				topic.setName(arn.resourceAsString());
 				return topic.getMendixObject();
 			}).collect(Collectors.toList());
-
 		// END USER CODE
 	}
 

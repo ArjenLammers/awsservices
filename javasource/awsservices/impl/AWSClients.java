@@ -75,7 +75,7 @@ public class AWSClients {
 	public static synchronized SnsClient getSnsClient(IContext context, Credentials credentials) throws CoreException {
 		SdkClient client = ClientCache.getClient(context, SnsClient.SERVICE_NAME, credentials);
 		if (client == null) {
-			AWSHelper.LOGGER.info("Creating client for " + StsClient.SERVICE_NAME + "(" + credentials.getIdentifier() + ").");
+			AWSHelper.LOGGER.info("Creating client for " + SnsClient.SERVICE_NAME + "(" + credentials.getIdentifier() + ").");
 			Region region = Region.of(credentials.getRegionName());
 			CredentialsProvider credentialsProvider = getCredentialsProvider(context, credentials);
 			SnsClient newClient = SnsClient.builder().credentialsProvider(
@@ -83,7 +83,7 @@ public class AWSClients {
 					.httpClientBuilder(ApacheHttpClient.builder())
 					.region(region)
 					.build();
-			ClientCache.addClient(context, StsClient.SERVICE_NAME, credentials,
+			ClientCache.addClient(context, SnsClient.SERVICE_NAME, credentials,
 					credentialsProvider.getExpiration(), newClient);
 			return newClient;
 		} else {

@@ -15,17 +15,17 @@ import com.mendix.systemwideinterfaces.core.IMendixObject;
 public class Microflows
 {
 	// These are the microflows for the AWSServices module
-	public static void aCr_Credentials(IContext context, awsservices.proxies.Credentials _credentials)
-	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("Credentials", _credentials == null ? null : _credentials.getMendixObject());
-		Core.microflowCall("AWSServices.ACr_Credentials").withParams(params).execute(context);
-	}
 	public static void aCT_SaveCredentials(IContext context, awsservices.proxies.Credentials _credentials)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
 		params.put("Credentials", _credentials == null ? null : _credentials.getMendixObject());
 		Core.microflowCall("AWSServices.ACT_SaveCredentials").withParams(params).execute(context);
+	}
+	public static void aCT_ValidateConfiguration(IContext context, awsservices.proxies.Credentials _credentials)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("Credentials", _credentials == null ? null : _credentials.getMendixObject());
+		Core.microflowCall("AWSServices.ACT_ValidateConfiguration").withParams(params).execute(context);
 	}
 	public static void afterStartup(IContext context)
 	{
@@ -297,10 +297,10 @@ public class Microflows
 		params.put("PutObject", _putObject == null ? null : _putObject.getMendixObject());
 		Core.microflowCall("AWSServices.IVK_UploadObjectConfirm").withParams(params).execute(context);
 	}
-	public static void iVK_ValidateConfiguration(IContext context, awsservices.proxies.Credentials _credentials)
+	public static boolean sub_ValidateCredentials(IContext context, awsservices.proxies.Credentials _credentials)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
 		params.put("Credentials", _credentials == null ? null : _credentials.getMendixObject());
-		Core.microflowCall("AWSServices.IVK_ValidateConfiguration").withParams(params).execute(context);
+		return (java.lang.Boolean) Core.microflowCall("AWSServices.Sub_ValidateCredentials").withParams(params).execute(context);
 	}
 }
