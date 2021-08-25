@@ -1,4 +1,4 @@
-# Amazon Web Services (AWS) (version 1.0)
+# Amazon Web Services (AWS) (version 1.2)
 
 This module provides actions and UI to leverage services on the Amazon Web Services (AWS).
 
