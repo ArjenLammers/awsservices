@@ -20,7 +20,6 @@ public class UserActionsRegistrar
     registrator.registerUserAction(awsservices.actions.S3_PutObject.class);
     registrator.registerUserAction(awsservices.actions.S3_PutObjectAsText.class);
     registrator.registerUserAction(awsservices.actions.SNS_ListTopics.class);
-    registrator.registerUserAction(awsservices.actions.SNS_Publish.class);
     registrator.registerUserAction(awsservices.actions.SNS_PublishMessage.class);
     registrator.registerUserAction(awsservices.actions.SQS_CreateQueue.class);
     registrator.registerUserAction(awsservices.actions.SQS_DeleteMessage.class);

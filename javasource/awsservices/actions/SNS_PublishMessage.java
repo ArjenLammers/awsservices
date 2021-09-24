@@ -9,13 +9,17 @@
 
 package awsservices.actions;
 
-import com.mendix.systemwideinterfaces.core.IContext;
-import com.mendix.webui.CustomJavaAction;
 import awsservices.impl.AWSClients;
+import awsservices.proxies.MessageAttribute;
+import com.mendix.systemwideinterfaces.core.IContext;
+import com.mendix.systemwideinterfaces.core.IMendixObject;
+import com.mendix.webui.CustomJavaAction;
 import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sns.model.MessageAttributeValue;
 import software.amazon.awssdk.services.sns.model.PublishRequest;
 import software.amazon.awssdk.services.sns.model.PublishResponse;
-import com.mendix.systemwideinterfaces.core.IMendixObject;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SNS_PublishMessage extends CustomJavaAction<java.lang.String>
 {
@@ -24,14 +28,17 @@ public class SNS_PublishMessage extends CustomJavaAction<java.lang.String>
 	private java.lang.String subject;
 	private java.lang.String body;
 	private java.lang.String topic;
+	private java.util.List<IMendixObject> __Attributes;
+	private java.util.List<awsservices.proxies.MessageAttribute> Attributes;
 
-	public SNS_PublishMessage(IContext context, IMendixObject credentials, java.lang.String subject, java.lang.String body, java.lang.String topic)
+	public SNS_PublishMessage(IContext context, IMendixObject credentials, java.lang.String subject, java.lang.String body, java.lang.String topic, java.util.List<IMendixObject> Attributes)
 	{
 		super(context);
 		this.__credentials = credentials;
 		this.subject = subject;
 		this.body = body;
 		this.topic = topic;
+		this.__Attributes = Attributes;
 	}
 
 	@java.lang.Override
@@ -39,10 +46,24 @@ public class SNS_PublishMessage extends CustomJavaAction<java.lang.String>
 	{
 		this.credentials = __credentials == null ? null : awsservices.proxies.Credentials.initialize(getContext(), __credentials);
 
+		this.Attributes = new java.util.ArrayList<awsservices.proxies.MessageAttribute>();
+		if (__Attributes != null)
+			for (IMendixObject __AttributesElement : __Attributes)
+				this.Attributes.add(awsservices.proxies.MessageAttribute.initialize(getContext(), __AttributesElement));
+
 		// BEGIN USER CODE
 		final SnsClient client = AWSClients.getSnsClient(context(), credentials);
 
+		final Map<String, MessageAttributeValue> attrs = Attributes.stream().collect(Collectors.toMap(
+				MessageAttribute::getKey,
+				x -> MessageAttributeValue.builder()
+						.dataType("String")
+						.stringValue(x.getValue())
+						.build()
+		));
+
 		final PublishRequest request = PublishRequest.builder()
+				.messageAttributes(attrs)
 				.message(body)
 				.subject(subject)
 				.topicArn(topic)
