@@ -2,6 +2,8 @@ package awsservices.impl;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAmount;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.HashMap;
@@ -49,7 +51,7 @@ public class CognitoCredentialsProvider extends CredentialsProvider {
 				region);
 
 		var awsCreds = AwsSessionCredentials.create(creds.accessKeyId(), creds.secretKey(), creds.sessionToken());
-		expiration = creds.expiration();
+		expiration = creds.expiration().minusSeconds(60);
 		return software.amazon.awssdk.auth.credentials.StaticCredentialsProvider.create(awsCreds);
 	}
 

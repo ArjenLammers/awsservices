@@ -22,7 +22,8 @@ public class MessageAttribute
 	{
 		Key("Key"),
 		Value("Value"),
-		MessageAttribute_Message("AWSServices.MessageAttribute_Message");
+		MessageAttribute_Message("AWSServices.MessageAttribute_Message"),
+		MessageAttribute_PublishRequest("AWSServices.MessageAttribute_PublishRequest");
 
 		private java.lang.String metaName;
 
@@ -222,6 +223,49 @@ public class MessageAttribute
 			getMendixObject().setValue(context, MemberNames.MessageAttribute_Message.toString(), null);
 		else
 			getMendixObject().setValue(context, MemberNames.MessageAttribute_Message.toString(), messageattribute_message.getMendixObject().getId());
+	}
+
+	/**
+	 * @return value of MessageAttribute_PublishRequest
+	 */
+	public final awsservices.proxies.PublishRequest getMessageAttribute_PublishRequest() throws com.mendix.core.CoreException
+	{
+		return getMessageAttribute_PublishRequest(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of MessageAttribute_PublishRequest
+	 */
+	public final awsservices.proxies.PublishRequest getMessageAttribute_PublishRequest(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
+	{
+		awsservices.proxies.PublishRequest result = null;
+		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.MessageAttribute_PublishRequest.toString());
+		if (identifier != null)
+			result = awsservices.proxies.PublishRequest.load(context, identifier);
+		return result;
+	}
+
+	/**
+	 * Set value of MessageAttribute_PublishRequest
+	 * @param messageattribute_publishrequest
+	 */
+	public final void setMessageAttribute_PublishRequest(awsservices.proxies.PublishRequest messageattribute_publishrequest)
+	{
+		setMessageAttribute_PublishRequest(getContext(), messageattribute_publishrequest);
+	}
+
+	/**
+	 * Set value of MessageAttribute_PublishRequest
+	 * @param context
+	 * @param messageattribute_publishrequest
+	 */
+	public final void setMessageAttribute_PublishRequest(com.mendix.systemwideinterfaces.core.IContext context, awsservices.proxies.PublishRequest messageattribute_publishrequest)
+	{
+		if (messageattribute_publishrequest == null)
+			getMendixObject().setValue(context, MemberNames.MessageAttribute_PublishRequest.toString(), null);
+		else
+			getMendixObject().setValue(context, MemberNames.MessageAttribute_PublishRequest.toString(), messageattribute_publishrequest.getMendixObject().getId());
 	}
 
 	/**
