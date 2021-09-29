@@ -45,7 +45,7 @@ public class SNS_ListTopics extends CustomJavaAction<java.util.List<IMendixObjec
 			response.topics().stream().map(x -> {
 				final Arn arn = Arn.fromString(x.topicArn());
 				final Topic topic = new Topic(getContext());
-				topic.setarn(x.topicArn());
+				topic.setArn(x.topicArn());
 				topic.setName(arn.resourceAsString());
 				return topic.getMendixObject();
 			}).collect(Collectors.toList());

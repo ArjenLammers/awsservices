@@ -1,4 +1,4 @@
-# Amazon Web Services (AWS) (version 1.2)
+# Amazon Web Services (AWS) (version 1.3)
 
 This module provides actions and UI to leverage services on the Amazon Web Services (AWS).
 
@@ -15,8 +15,7 @@ The following services are facilitated using this module:
   - Examples for high volume processing
 - SNS - Simple Notification Service
   - Explore topics through UI
-  - Publish messages to topics
-
+  - Publish messages to topics (incl message attributes)
 
 
 The following flows of authentication are supported to access all of the above services:

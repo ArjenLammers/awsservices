@@ -28,17 +28,17 @@ public class SNS_PublishMessage extends CustomJavaAction<java.lang.String>
 	private java.lang.String subject;
 	private java.lang.String body;
 	private java.lang.String topic;
-	private java.util.List<IMendixObject> __Attributes;
-	private java.util.List<awsservices.proxies.MessageAttribute> Attributes;
+	private java.util.List<IMendixObject> __attributes;
+	private java.util.List<awsservices.proxies.MessageAttribute> attributes;
 
-	public SNS_PublishMessage(IContext context, IMendixObject credentials, java.lang.String subject, java.lang.String body, java.lang.String topic, java.util.List<IMendixObject> Attributes)
+	public SNS_PublishMessage(IContext context, IMendixObject credentials, java.lang.String subject, java.lang.String body, java.lang.String topic, java.util.List<IMendixObject> attributes)
 	{
 		super(context);
 		this.__credentials = credentials;
 		this.subject = subject;
 		this.body = body;
 		this.topic = topic;
-		this.__Attributes = Attributes;
+		this.__attributes = attributes;
 	}
 
 	@java.lang.Override
@@ -46,15 +46,15 @@ public class SNS_PublishMessage extends CustomJavaAction<java.lang.String>
 	{
 		this.credentials = __credentials == null ? null : awsservices.proxies.Credentials.initialize(getContext(), __credentials);
 
-		this.Attributes = new java.util.ArrayList<awsservices.proxies.MessageAttribute>();
-		if (__Attributes != null)
-			for (IMendixObject __AttributesElement : __Attributes)
-				this.Attributes.add(awsservices.proxies.MessageAttribute.initialize(getContext(), __AttributesElement));
+		this.attributes = new java.util.ArrayList<awsservices.proxies.MessageAttribute>();
+		if (__attributes != null)
+			for (IMendixObject __attributesElement : __attributes)
+				this.attributes.add(awsservices.proxies.MessageAttribute.initialize(getContext(), __attributesElement));
 
 		// BEGIN USER CODE
 		final SnsClient client = AWSClients.getSnsClient(context(), credentials);
 
-		final Map<String, MessageAttributeValue> attrs = Attributes.stream().collect(Collectors.toMap(
+		final Map<String, MessageAttributeValue> attrs = attributes.stream().collect(Collectors.toMap(
 				MessageAttribute::getKey,
 				x -> MessageAttributeValue.builder()
 						.dataType("String")

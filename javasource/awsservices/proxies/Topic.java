@@ -20,7 +20,7 @@ public class Topic
 	 */
 	public enum MemberNames
 	{
-		arn("arn"),
+		Arn("Arn"),
 		Name("Name"),
 		Topic_Credentials("AWSServices.Topic_Credentials");
 
@@ -110,39 +110,39 @@ public class Topic
 		com.mendix.core.Core.delete(context, getMendixObject());
 	}
 	/**
-	 * @return value of arn
+	 * @return value of Arn
 	 */
-	public final java.lang.String getarn()
+	public final java.lang.String getArn()
 	{
-		return getarn(getContext());
+		return getArn(getContext());
 	}
 
 	/**
 	 * @param context
-	 * @return value of arn
+	 * @return value of Arn
 	 */
-	public final java.lang.String getarn(com.mendix.systemwideinterfaces.core.IContext context)
+	public final java.lang.String getArn(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		return (java.lang.String) getMendixObject().getValue(context, MemberNames.arn.toString());
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.Arn.toString());
 	}
 
 	/**
-	 * Set value of arn
+	 * Set value of Arn
 	 * @param arn
 	 */
-	public final void setarn(java.lang.String arn)
+	public final void setArn(java.lang.String arn)
 	{
-		setarn(getContext(), arn);
+		setArn(getContext(), arn);
 	}
 
 	/**
-	 * Set value of arn
+	 * Set value of Arn
 	 * @param context
 	 * @param arn
 	 */
-	public final void setarn(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String arn)
+	public final void setArn(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String arn)
 	{
-		getMendixObject().setValue(context, MemberNames.arn.toString(), arn);
+		getMendixObject().setValue(context, MemberNames.Arn.toString(), arn);
 	}
 
 	/**
