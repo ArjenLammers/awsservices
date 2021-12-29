@@ -26,6 +26,7 @@ public class Credentials
 		Identifier("Identifier"),
 		RegionName("RegionName"),
 		Provider("Provider"),
+		Endpoint("Endpoint"),
 		SelectedRegion("AWSServices.SelectedRegion"),
 		Credentials_StaticCredentials("AWSServices.Credentials_StaticCredentials"),
 		Credentials_CognitoCredentials("AWSServices.Credentials_CognitoCredentials");
@@ -237,6 +238,42 @@ public class Credentials
 			getMendixObject().setValue(context, MemberNames.Provider.toString(), provider.toString());
 		else
 			getMendixObject().setValue(context, MemberNames.Provider.toString(), null);
+	}
+
+	/**
+	 * @return value of Endpoint
+	 */
+	public final java.lang.String getEndpoint()
+	{
+		return getEndpoint(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Endpoint
+	 */
+	public final java.lang.String getEndpoint(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.Endpoint.toString());
+	}
+
+	/**
+	 * Set value of Endpoint
+	 * @param endpoint
+	 */
+	public final void setEndpoint(java.lang.String endpoint)
+	{
+		setEndpoint(getContext(), endpoint);
+	}
+
+	/**
+	 * Set value of Endpoint
+	 * @param context
+	 * @param endpoint
+	 */
+	public final void setEndpoint(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String endpoint)
+	{
+		getMendixObject().setValue(context, MemberNames.Endpoint.toString(), endpoint);
 	}
 
 	/**

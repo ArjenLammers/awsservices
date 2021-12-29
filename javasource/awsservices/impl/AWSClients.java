@@ -1,5 +1,8 @@
 package awsservices.impl;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import com.mendix.core.CoreException;
 import com.mendix.systemwideinterfaces.core.IContext;
 
@@ -9,9 +12,13 @@ import software.amazon.awssdk.core.SdkClient;
 import software.amazon.awssdk.http.apache.ApacheHttpClient;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.S3ClientBuilder;
 import software.amazon.awssdk.services.sns.SnsClient;
+import software.amazon.awssdk.services.sns.SnsClientBuilder;
 import software.amazon.awssdk.services.sqs.SqsClient;
+import software.amazon.awssdk.services.sqs.SqsClientBuilder;
 import software.amazon.awssdk.services.sts.StsClient;
+import software.amazon.awssdk.services.sts.StsClientBuilder;
 
 public class AWSClients {
 	
@@ -21,11 +28,19 @@ public class AWSClients {
 			AWSHelper.LOGGER.info("Creating client for " + SqsClient.SERVICE_NAME + "(" + credentials.getIdentifier() + ").");
 			Region region = Region.of(credentials.getRegionName());
 			CredentialsProvider credentialsProvider = getCredentialsProvider(context, credentials);
-			SqsClient newClient = SqsClient.builder().credentialsProvider(
+			SqsClientBuilder builder = SqsClient.builder().credentialsProvider(
 					credentialsProvider.getAwsCredentialsProvider())
 					.httpClientBuilder(ApacheHttpClient.builder())
-					.region(region)
-					.build();
+					.region(region);
+			
+			if (credentials.getEndpoint() != null && !credentials.getEndpoint().isEmpty())
+				try {
+					builder.endpointOverride(new URI(credentials.getEndpoint()));
+				} catch (URISyntaxException e) {
+					AWSHelper.LOGGER.error("Unable to construct URI: " + e.getMessage(), e);
+				}
+			
+			SqsClient newClient = builder.build();
 			ClientCache.addClient(context, SqsClient.SERVICE_NAME, credentials, 
 					credentialsProvider.getExpiration(), newClient);
 			return newClient;
@@ -40,11 +55,19 @@ public class AWSClients {
 			AWSHelper.LOGGER.info("Creating client for " + S3Client.SERVICE_NAME + "(" + credentials.getIdentifier() + ").");
 			Region region = Region.of(credentials.getRegionName());
 			CredentialsProvider credentialsProvider = getCredentialsProvider(context, credentials);
-			S3Client newClient = S3Client.builder().credentialsProvider(
+			S3ClientBuilder builder = S3Client.builder().credentialsProvider(
 					credentialsProvider.getAwsCredentialsProvider())
 					.httpClientBuilder(ApacheHttpClient.builder())
-					.region(region)
-					.build();
+					.region(region);
+			
+			if (credentials.getEndpoint() != null && !credentials.getEndpoint().isEmpty())
+				try {
+					builder.endpointOverride(new URI(credentials.getEndpoint()));
+				} catch (URISyntaxException e) {
+					AWSHelper.LOGGER.error("Unable to construct URI: " + e.getMessage(), e);
+				}
+			
+			S3Client newClient = builder.build();
 			ClientCache.addClient(context, S3Client.SERVICE_NAME, credentials, 
 					credentialsProvider.getExpiration(), newClient);
 			return newClient;
@@ -59,11 +82,19 @@ public class AWSClients {
 			AWSHelper.LOGGER.info("Creating client for " + StsClient.SERVICE_NAME + "(" + credentials.getIdentifier() + ").");
 			Region region = Region.of(credentials.getRegionName());
 			CredentialsProvider credentialsProvider = getCredentialsProvider(context, credentials);
-			StsClient newClient = StsClient.builder().credentialsProvider(
+			StsClientBuilder builder = StsClient.builder().credentialsProvider(
 					credentialsProvider.getAwsCredentialsProvider())
 					.httpClientBuilder(ApacheHttpClient.builder())
-					.region(region)
-					.build();
+					.region(region);
+			
+			if (credentials.getEndpoint() != null && !credentials.getEndpoint().isEmpty())
+				try {
+					builder.endpointOverride(new URI(credentials.getEndpoint()));
+				} catch (URISyntaxException e) {
+					AWSHelper.LOGGER.error("Unable to construct URI: " + e.getMessage(), e);
+				}
+					
+			StsClient newClient = builder.build();
 			ClientCache.addClient(context, StsClient.SERVICE_NAME, credentials, 
 					credentialsProvider.getExpiration(), newClient);
 			return newClient;
@@ -78,11 +109,19 @@ public class AWSClients {
 			AWSHelper.LOGGER.info("Creating client for " + SnsClient.SERVICE_NAME + "(" + credentials.getIdentifier() + ").");
 			Region region = Region.of(credentials.getRegionName());
 			CredentialsProvider credentialsProvider = getCredentialsProvider(context, credentials);
-			SnsClient newClient = SnsClient.builder().credentialsProvider(
+			SnsClientBuilder builder = SnsClient.builder().credentialsProvider(
 					credentialsProvider.getAwsCredentialsProvider())
 					.httpClientBuilder(ApacheHttpClient.builder())
-					.region(region)
-					.build();
+					.region(region);
+			
+			if (credentials.getEndpoint() != null && !credentials.getEndpoint().isEmpty())
+				try {
+					builder.endpointOverride(new URI(credentials.getEndpoint()));
+				} catch (URISyntaxException e) {
+					AWSHelper.LOGGER.error("Unable to construct URI: " + e.getMessage(), e);
+				}
+			
+			SnsClient newClient = builder.build();
 			ClientCache.addClient(context, SnsClient.SERVICE_NAME, credentials,
 					credentialsProvider.getExpiration(), newClient);
 			return newClient;
