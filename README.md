@@ -39,6 +39,21 @@ This module depends on the following modules:
 
   
 
+## Getting started
+
+
+
+1. Download this module & its dependencies.
+2. Wire up the module roles to application roles for the imported modules.
+3. Set up an encryption key (see the docs for the Encryption module - 32 characters required!).
+4. Set up the after startup microflow.
+5. Create a page with the Administration snippet and wire it up in Navigation.
+6. Start up the app and navigate to the page with the Administration snippet.
+7. Define a set of credentials on the Credentials tab.
+8. Use the available services on the Services tab with the credentials.
+
+
+
 ## How to upgrade from earlier SQS/S3/xx modules
 
 The earlier S3 and SQS modules were using a earlier version of the Amazon SDK. Therefore all AWS jars should be removed from the `userlib` directory.
